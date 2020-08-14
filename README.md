@@ -34,7 +34,7 @@ API
 - select(el)
 - selectAll(el)
 
-select_(All)_ add the following helper fn to the returned obj:
+select/selectAll add the following helper fn to the returned obj:
 
 - addClass(name)
 - removeClass(name)
@@ -47,12 +47,12 @@ select_(All)_ add the following helper fn to the returned obj:
 - hide()
 - append(html)
 - prepend(html)
-- click(callback) _no chain_
-- contextmenu(callback) _no chain_
+- click(callback) [_no chain_]
+- contextmenu(callback) [_no chain_]
 - select(el)
 - selectAll(el)
 - parent(el = null)
-- fadeOut(duration = 400) _promise_
-- fadeIn(duration = 400) _promise_
+- fadeOut(duration = 400) [_promise_]
+- fadeIn(duration = 400) [_promise_]
 
 Each return target obj so you can chain them.
