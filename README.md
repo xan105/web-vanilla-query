@@ -39,6 +39,7 @@ select/selectAll add the following helper fn to the returned obj:
 - addClass(name)
 - removeClass(name)
 - toggleClass(name)
+- html(value)
 - css(name, value)
 - text(value)
 - attr(name, value)

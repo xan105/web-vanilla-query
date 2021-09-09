@@ -1,8 +1,8 @@
 {
   "name": "@xan105/vanilla-query",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Like jQuery but with a vanilla flavor",
-  "browser": "vanilla.js",
+  "browser": "./lib/esm.js",
   "scripts": {
     "lint": "npx eslint --ignore-path .gitignore ./**/*.js"
   },
