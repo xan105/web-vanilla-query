@@ -3,7 +3,6 @@ About
 
 Like jQuery but with a Vanilla flavor.<br/>
 Simple DOM manipulation and traversal in "Vanilla JS" with chaining.<br/>
-⚠️ This is intended for the browser.
 
 📦 Scoped `@xan105` packages are for my own personal use but feel free to use them.
 
@@ -47,7 +46,7 @@ npm i @xan105/vanilla-query
 }
 ```
 
-html:
+index.html:
 
 ```html
   <script src="./importmap.json" type="importmap"></script>
@@ -56,7 +55,7 @@ html:
 </html>
 ```
 
-js:
+index.js:
 
 ```js
 import { DOMReady } from "@xan105/vanilla-query"
@@ -68,13 +67,15 @@ DOMReady(()=>{
 API
 ===
 
+⚠️ This is intended for the browser.
+
 ## Named export
 
 - DOMReady(callback)
-- $select(el, scope = document)*
-- $selectAll(el, scope = document)*
+- $select(el, scope = document)¹
+- $selectAll(el, scope = document)¹
 
-* `$select()` and `$selectAll()` add the following helper fn to the returned HTMLElement:
+¹ `$select()` and `$selectAll()` add the following helper fn to the returned HTMLElement:
 
 - $addClass(name)
 - $removeClass(name)
@@ -89,15 +90,15 @@ API
 - $hide()
 - $append(html)
 - $prepend(html)
-- $click(callback) [_no chain_]
-- $on(event, callback) [_no chain_]
-- $contextmenu(callback) [_no chain_]
+- $click(callback) `no chain`
+- $on(event, callback) `no chain`
+- $contextmenu(callback) `no chain`
 - $select(el)
 - $selectAll(el)
 - $parent(el = null)
 - $prev()
 - $next()
-- $fadeOut(duration = 400) [_promise_]
-- $fadeIn(duration = 400) [_promise_]
+- $fadeOut(duration = 400) `promise`
+- $fadeIn(duration = 400) `promise`
 
 💡 Unless otherwise specified each return itself so you can chain the methods.
