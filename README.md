@@ -1,8 +1,8 @@
 About
 =====
 
-Like jQuery but with a Vanilla flavor.<br/>
-Simple DOM manipulation and traversal in "Vanilla JS" with chaining.<br/>
+DOM manipulation and traversal in Vanilla JS with chaining.<br/>
+Like jQuery but with a Vanilla flavor.
 
 📦 Scoped `@xan105` packages are for my own personal use but feel free to use them.
 

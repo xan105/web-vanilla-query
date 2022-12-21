@@ -1,7 +1,7 @@
 {
   "name": "@xan105/vanilla-query",
   "version": "1.2.0",
-  "description": "Like jQuery but with a vanilla flavor",
+  "description": "DOM manipulation and traversal in Vanilla JS with chaining",
   "type": "module",
   "exports": "./lib/index.js",
   "browser": "./dist/vq.min.js",
