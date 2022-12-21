@@ -36,7 +36,9 @@ Install
 npm i @xan105/vanilla-query
 ```
 
-(Optional) Create an importmap:
+### Optional 
+
+Create an importmap:
 
 ```json
 {
