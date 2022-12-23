@@ -77,7 +77,9 @@ __export(helper_exports, {
   $hasClass: () => $hasClass,
   $hide: () => $hide,
   $html: () => $html,
+  $off: () => $off,
   $on: () => $on,
+  $once: () => $once,
   $prepend: () => $prepend,
   $removeClass: () => $removeClass,
   $show: () => $show,
@@ -113,7 +115,7 @@ var $hasClass = {
 };
 var $html = {
   value: function(value = null) {
-    if (!value)
+    if (value == null)
       return this.innerHTML;
     this.innerHTML = value;
     return this;
@@ -121,7 +123,9 @@ var $html = {
   ...param
 };
 var $css = {
-  value: function(name, value) {
+  value: function(name, value = null) {
+    if (value == null)
+      return this.style[name];
     this.style[name] = value;
     return this;
   },
@@ -129,7 +133,7 @@ var $css = {
 };
 var $text = {
   value: function(value = null) {
-    if (!value)
+    if (value == null)
       return this.textContent;
     this.textContent = value;
     return this;
@@ -138,7 +142,7 @@ var $text = {
 };
 var $attr = {
   value: function(name, value = null) {
-    if (value === null)
+    if (value == null)
       return this.getAttribute(name);
     this.setAttribute(name, value);
     return this;
@@ -199,9 +203,28 @@ var $on = {
   },
   ...param
 };
+var $off = {
+  value: function(event, callback) {
+    this.removeEventListener(event, callback, false);
+  },
+  ...param
+};
+var $once = {
+  value: function(event, callback) {
+    this.addEventListener(event, callback, {
+      capture: false,
+      once: true
+    });
+  },
+  ...param
+};
 var $contextmenu = {
   value: function(callback) {
-    this.addEventListener("contextmenu", callback, false);
+    if (typeof callback === "function") {
+      this.addEventListener("contextmenu", callback, false);
+    } else {
+      this.dispatchEvent("contextmenu");
+    }
   },
   ...param
 };

@@ -83,18 +83,20 @@ API
 - $removeClass(name)
 - $toggleClass(name)
 - $hasClass(name)
-- $html(value)
-- $css(name, value)
-- $text(value)
-- $attr(name, value)
+- $html(value = null)² 
+- $css(name, value = null)²
+- $text(value = null)²
+- $attr(name, value = null)²
 - $empty()
 - $show()
 - $hide()
 - $append(html)
 - $prepend(html)
-- $click(callback) `no chain`
+- $click(callback) or $click() `no chain`²
 - $on(event, callback) `no chain`
-- $contextmenu(callback) `no chain`
+- $off(event, callback) `no chain`
+- $once(event, callback) `no chain`
+- $contextmenu(callback) or $contextmenu() `no chain`²
 - $select(el)
 - $selectAll(el)
 - $parent(el = null)
@@ -102,5 +104,7 @@ API
 - $next()
 - $fadeOut(duration = 400) `promise`
 - $fadeIn(duration = 400) `promise`
+
+² Set _or_ get value / trigger callback when omitted
 
 💡 Unless otherwise specified each return itself so you can chain the methods.
