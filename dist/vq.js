@@ -187,25 +187,14 @@ var $prepend = {
   },
   ...param
 };
-var $click = {
-  value: function(callback) {
-    if (typeof callback === "function") {
-      this.addEventListener("click", callback, false);
-    } else {
-      this.click();
-    }
-  },
-  ...param
-};
 var $on = {
   value: function(event, callback) {
     this.addEventListener(event, callback, false);
-  },
-  ...param
-};
-var $off = {
-  value: function(event, callback) {
-    this.removeEventListener(event, callback, false);
+    if (!this.$__events__)
+      this.$__events__ = /* @__PURE__ */ Object.create(null);
+    if (!this.$__events__[event])
+      this.$__events__[event] = /* @__PURE__ */ new Set();
+    this.$__events__[event].add(callback);
   },
   ...param
 };
@@ -218,10 +207,34 @@ var $once = {
   },
   ...param
 };
+var $off = {
+  value: function(event, callback) {
+    if (typeof callback === "function") {
+      this.removeEventListener(event, callback, false);
+      this.$__events__?.[event]?.delete(callback);
+    } else if (this.$__events__?.[event]) {
+      this.$__events__[event].forEach((cb) => {
+        this.removeEventListener(event, cb, false);
+      });
+      this.$__events__[event].clear();
+    }
+  },
+  ...param
+};
+var $click = {
+  value: function(callback) {
+    if (typeof callback === "function") {
+      this.$on("click", callback, false);
+    } else {
+      this.click();
+    }
+  },
+  ...param
+};
 var $contextmenu = {
   value: function(callback) {
     if (typeof callback === "function") {
-      this.addEventListener("contextmenu", callback, false);
+      this.$on("contextmenu", callback, false);
     } else {
       this.dispatchEvent("contextmenu");
     }

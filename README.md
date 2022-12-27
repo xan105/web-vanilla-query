@@ -94,7 +94,7 @@ API
 - $prepend(html)
 - $click(callback) or $click() `no chain`²
 - $on(event, callback) `no chain`
-- $off(event, callback) `no chain`
+- $off(event, callback) or $off(event) `no chain`
 - $once(event, callback) `no chain`
 - $contextmenu(callback) or $contextmenu() `no chain`²
 - $select(el)
