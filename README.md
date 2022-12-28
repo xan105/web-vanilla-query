@@ -2,7 +2,7 @@ About
 =====
 
 DOM manipulation and traversal in Vanilla JS with chaining.<br/>
-Like jQuery but with a Vanilla flavor.
+Like jQuery but with a Vanilla flavor 😋.
 
 📦 Scoped `@xan105` packages are for my own personal use but feel free to use them.
 
@@ -69,7 +69,7 @@ DOMReady(()=>{
 API
 ===
 
-⚠️ This is intended for the browser.
+⚠️ This module is only available as an ECMAScript module (ESM) and is intended for the browser.
 
 ## Named export
 
@@ -92,11 +92,11 @@ API
 - $hide()
 - $append(html)
 - $prepend(html)
-- $click(callback) or $click() `no chain`²
+- $click(callback) or $click()² `no chain`
 - $on(event, callback) `no chain`
-- $off(event, callback) or $off(event) `no chain`
+- $off(event, callback) or $off(event)³ `no chain`
 - $once(event, callback) `no chain`
-- $contextmenu(callback) or $contextmenu() `no chain`²
+- $contextmenu(callback) or $contextmenu()² `no chain`
 - $select(el)
 - $selectAll(el)
 - $parent(el = null)
@@ -106,5 +106,8 @@ API
 - $fadeIn(duration = 400) `promise`
 
 ² Set _or_ get value / trigger callback when omitted
+
+³ eventListeners created by `$on()` (_including $click(), $contextmenu()_) are stored in the "hidden" property `$__events__`.<br/>
+  Calling `$off(event)` will remove every known handler for that event.
 
 💡 Unless otherwise specified each return itself so you can chain the methods.
