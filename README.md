@@ -107,7 +107,6 @@ API
 
 ² Set _or_ get value / trigger callback when omitted
 
-³ eventListeners created by `$on()` (_including $click(), $contextmenu()_) are stored in the "hidden" property `$__events__`.<br/>
-  Calling `$off(event)` will remove every known handler for that event.
+³ eventListeners created by `$on()` (_including $click(), $contextmenu()_) are stored in the "hidden" property `$__events__`. Calling `$off(event)` will remove every known handler for that event.
 
 💡 Unless otherwise specified each return itself so you can chain the methods.
