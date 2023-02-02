@@ -71,7 +71,8 @@ __export(helper_exports, {
   $removeClass: () => $removeClass,
   $show: () => $show,
   $text: () => $text,
-  $toggleClass: () => $toggleClass
+  $toggleClass: () => $toggleClass,
+  $trigger: () => $trigger
 });
 var $addClass = function(name) {
   this.classList.add(name);
@@ -173,11 +174,16 @@ var $click = function(callback) {
     this.click();
   }
 };
+var $trigger = function(name) {
+  const event = document.createEvent("HTMLEvents");
+  event.initEvent(name, false, true);
+  this.dispatchEvent(event);
+};
 var $contextmenu = function(callback) {
   if (typeof callback === "function") {
     this.$on("contextmenu", callback, false);
   } else {
-    this.dispatchEvent("contextmenu");
+    this.$trigger("contextmenu");
   }
 };
 

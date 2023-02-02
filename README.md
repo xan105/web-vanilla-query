@@ -96,6 +96,7 @@ API
 - $on(event, callback) `no chain`
 - $off(event, callback) or $off(event)³ `no chain`
 - $once(event, callback) `no chain`
+- $trigger(name) `no chain`
 - $contextmenu(callback) or $contextmenu()² `no chain`
 - $select(el)
 - $selectAll(el)
