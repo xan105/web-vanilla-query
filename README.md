@@ -90,6 +90,7 @@ API
 - $empty()
 - $show()
 - $hide()
+- $isHidden() `no chain`
 - $append(html)
 - $prepend(html)
 - $click(callback) or $click()² `no chain`
