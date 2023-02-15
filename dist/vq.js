@@ -10,8 +10,8 @@ __export(fx_exports, {
   $fadeIn: () => $fadeIn,
   $fadeOut: () => $fadeOut
 });
-var $fadeOut = (duration = 400) => {
-  const el = void 0;
+var $fadeOut = function(duration = 400) {
+  const el = this;
   return new Promise((resolve) => {
     el.style["pointer-events"] = "none";
     el.style.opacity = 1;
@@ -29,8 +29,8 @@ var $fadeOut = (duration = 400) => {
     })();
   });
 };
-var $fadeIn = (duration = 400) => {
-  const el = void 0;
+var $fadeIn = function(duration = 400) {
+  const el = this;
   return new Promise((resolve) => {
     el.style["pointer-events"] = "none";
     el.style.opacity = 0;
@@ -55,7 +55,6 @@ var $fadeIn = (duration = 400) => {
 var helper_exports = {};
 __export(helper_exports, {
   $addClass: () => $addClass,
-  $append: () => $append,
   $attr: () => $attr,
   $click: () => $click,
   $contextmenu: () => $contextmenu,
@@ -64,10 +63,10 @@ __export(helper_exports, {
   $hasClass: () => $hasClass,
   $hide: () => $hide,
   $html: () => $html,
+  $isHidden: () => $isHidden,
   $off: () => $off,
   $on: () => $on,
   $once: () => $once,
-  $prepend: () => $prepend,
   $removeClass: () => $removeClass,
   $show: () => $show,
   $text: () => $text,
@@ -128,13 +127,11 @@ var $hide = function() {
   this.style.display = "none";
   return this;
 };
-var $append = function(html) {
-  this.insertAdjacentHTML("beforeend", html);
-  return this;
-};
-var $prepend = function(html) {
-  this.insertAdjacentHTML("afterbegin", html);
-  return this;
+var $isHidden = function() {
+  return !this.checkVisibility({
+    checkOpacity: true,
+    checkVisibilityCSS: true
+  });
 };
 var $on = function(event, callback) {
   this.addEventListener(event, callback, false);
@@ -197,7 +194,9 @@ var self = {
   },
   $parent: parent,
   $prev: prev,
-  $next: next
+  $next: next,
+  $append: append,
+  $prepend: prepend
 };
 var param = {
   configurable: false,
@@ -225,10 +224,32 @@ function parent(el = null) {
   return define(el ? this.closest(el) : this.parentNode);
 }
 function prev() {
-  return define(this.previousElementSibling ?? this.parentElement?.lastElementChild);
+  let el = this;
+  do {
+    el = el.previousElementSibling ?? el.parentElement?.lastElementChild;
+  } while (el && el.checkVisibility({
+    checkOpacity: true,
+    checkVisibilityCSS: true
+  }) === false);
+  return define(el);
 }
 function next() {
-  return define(this.nextElementSibling ?? this.parentElement?.firstElementChild);
+  let el = this;
+  do {
+    el = el.nextElementSibling ?? el.parentElement?.firstElementChild;
+  } while (el && el.checkVisibility({
+    checkOpacity: true,
+    checkVisibilityCSS: true
+  }) === false);
+  return define(el);
+}
+function append(html) {
+  this.insertAdjacentHTML("beforeend", html);
+  return define(this.lastElementChild);
+}
+function prepend(html) {
+  this.insertAdjacentHTML("afterbegin", html);
+  return define(this.firstElementChild);
 }
 
 // lib/index.js
