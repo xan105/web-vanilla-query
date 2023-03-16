@@ -186,11 +186,11 @@ var $contextmenu = function(callback) {
 
 // lib/select.js
 var self = {
-  $select: function(el) {
-    return select(el, this);
+  $select: function(query) {
+    return select(query, this);
   },
-  $selectAll: function(el) {
-    return selectAll(el, this);
+  $selectAll: function(query) {
+    return selectAll(query, this);
   },
   $parent: parent,
   $prev: prev,
@@ -214,11 +214,11 @@ function define(el) {
   }
   return el;
 }
-function select(el, scope = document) {
-  return define(scope.querySelector(el));
+function select(query, scope = document) {
+  return define(scope.querySelector(query));
 }
-function selectAll(el, scope = document) {
-  return [...scope.querySelectorAll(el)].map((e) => define(e));
+function selectAll(query, scope = document) {
+  return [...scope.querySelectorAll(query)].map((el) => define(el));
 }
 function parent(el = null) {
   return define(el ? this.closest(el) : this.parentNode);
@@ -260,6 +260,7 @@ function DOMReady(fn) {
     document.addEventListener("DOMContentLoaded", fn);
 }
 export {
+  define as $define,
   select as $select,
   selectAll as $selectAll,
   DOMReady
