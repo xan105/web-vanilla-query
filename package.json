@@ -1,6 +1,6 @@
 {
   "name": "@xan105/vanilla-query",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "DOM manipulation and traversal in Vanilla JS with chaining",
   "type": "module",
   "exports": "./lib/index.js",
