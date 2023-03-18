@@ -195,6 +195,8 @@ var self = {
   $parent: parent,
   $prev: prev,
   $next: next,
+  $prevUntilVisible: prevUntilVisible,
+  $nextUntilVisible: nextUntilVisible,
   $append: append,
   $prepend: prepend
 };
@@ -224,24 +226,26 @@ function parent(el = null) {
   return define(el ? this.closest(el) : this.parentNode);
 }
 function prev() {
-  let el = this;
-  do {
-    el = el.previousElementSibling ?? el.parentElement?.lastElementChild;
-  } while (el && el.checkVisibility({
-    checkOpacity: true,
-    checkVisibilityCSS: true
-  }) === false);
-  return define(el);
+  return define(this.previousElementSibling ?? this.parentElement?.lastElementChild);
 }
 function next() {
-  let el = this;
+  return define(this.nextElementSibling ?? this.parentElement?.firstElementChild);
+}
+function prevUntilVisible() {
+  const self2 = this;
+  let el = self2, equal = false;
   do {
-    el = el.nextElementSibling ?? el.parentElement?.firstElementChild;
-  } while (el && el.checkVisibility({
-    checkOpacity: true,
-    checkVisibilityCSS: true
-  }) === false);
-  return define(el);
+    el = prev.bind(el)();
+  } while (el && (equal = self2.isEqualNode(el)) === false && el.$isHidden());
+  return equal ? void 0 : el;
+}
+function nextUntilVisible() {
+  const self2 = this;
+  let el = self2, equal = false;
+  do {
+    el = next.bind(el)();
+  } while (el && (equal = self2.isEqualNode(el)) === false && el.$isHidden());
+  return equal ? void 0 : el;
 }
 function append(html) {
   this.insertAdjacentHTML("beforeend", html);

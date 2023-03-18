@@ -106,6 +106,8 @@ API
 - $parent(el = null)
 - $prev()
 - $next()
+- $prevUntilVisible()
+- $nextUntilVisible()
 - $fadeOut(duration = 400) `promise`
 - $fadeIn(duration = 400) `promise`
 
