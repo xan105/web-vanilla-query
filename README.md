@@ -73,43 +73,43 @@ API
 
 ## Named export
 
-- DOMReady(callback) `no chain`
+- DOMReady(callback: function) `no chain`
 
 - $define(HTMLElement): HTMLElement¹
-- $select(query, scope = document): HTMLElement¹
-- $selectAll(query, scope = document): HTMLElement¹
+- $select(query: string, scope = document): HTMLElement¹
+- $selectAll(query: string, scope = document): HTMLElement¹
 
 ¹ `$select()`, `$selectAll()` and `$define()` add the following helper fn to the returned HTMLElement.
 
-- $addClass(name)
-- $removeClass(name)
-- $toggleClass(name)
-- $hasClass(name)
-- $html(value = null)² 
-- $css(name, value = null)²
-- $text(value = null)²
-- $attr(name, value = null)²
+- $addClass(name: string)
+- $removeClass(name: string)
+- $toggleClass(name: string)
+- $hasClass(name: string)
+- $html(value?: string)² 
+- $css(name: string, value?: string)²
+- $text(value?: string)²
+- $attr(name: string, value?: string)²
 - $empty()
 - $show()
 - $hide()
 - $isHidden() `no chain`
-- $append(html)
-- $prepend(html)
-- $click(callback) or $click()² `no chain`
-- $on(event, callback) `no chain`
-- $off(event, callback) or $off(event)³ `no chain`
-- $once(event, callback) `no chain`
-- $trigger(name) `no chain`
-- $contextmenu(callback) or $contextmenu()² `no chain`
-- $select(el)
-- $selectAll(el)
-- $parent(el = null)
+- $append(html: string)
+- $prepend(html: string)
+- $click(callback: function) or $click()² `no chain`
+- $on(event: string, callback: function) `no chain`
+- $off(event: string, callback: function) or $off(event)³ `no chain`
+- $once(event: string, callback: function) `no chain`
+- $trigger(name: string) `no chain`
+- $contextmenu(callback: function) or $contextmenu()² `no chain`
+- $select(query: string)
+- $selectAll(query: string)
+- $parent(el?: string)
 - $prev()
 - $next()
 - $prevUntilVisible()
 - $nextUntilVisible()
-- $fadeOut(duration = 400) `promise`
-- $fadeIn(duration = 400) `promise`
+- $fadeOut(duration?: number = 400) `promise`
+- $fadeIn(duration?: number = 400) `promise`
 
 ² Set _or_ get value / trigger callback when omitted
 
