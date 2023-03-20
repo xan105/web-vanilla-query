@@ -11,9 +11,10 @@ __export(fx_exports, {
   $fadeOut: () => $fadeOut
 });
 var $fadeOut = function(duration = 400) {
-  const el = this;
   return new Promise((resolve) => {
-    el.style["pointer-events"] = "none";
+    const el = this;
+    const root = document.querySelector("body");
+    root.style["pointer-events"] = "none";
     el.style.opacity = 1;
     let previous = +new Date();
     (function fade() {
@@ -22,17 +23,18 @@ var $fadeOut = function(duration = 400) {
       if (+el.style.opacity <= 0) {
         el.style.display = "none";
         el.style.removeProperty("opacity");
-        el.style["pointer-events"] = "";
-        return resolve(el);
+        root.style["pointer-events"] = "";
+        return resolve();
       } else if (+el.style.opacity > 0)
         requestAnimationFrame(fade);
     })();
   });
 };
 var $fadeIn = function(duration = 400) {
-  const el = this;
   return new Promise((resolve) => {
-    el.style["pointer-events"] = "none";
+    const el = this;
+    const root = document.querySelector("body");
+    root.style["pointer-events"] = "none";
     el.style.opacity = 0;
     el.style.display = "";
     if (getComputedStyle(el).display === "none")
@@ -43,8 +45,8 @@ var $fadeIn = function(duration = 400) {
       previous = +new Date();
       if (+el.style.opacity >= 1) {
         el.style.removeProperty("opacity");
-        el.style["pointer-events"] = "";
-        return resolve(el);
+        root.style["pointer-events"] = "";
+        return resolve();
       } else if (+el.style.opacity < 1)
         requestAnimationFrame(fade);
     })();

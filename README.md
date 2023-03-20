@@ -18,8 +18,14 @@ DOMReady(()=>{
   
   const el = $select("#div");
   el.$hide();
-  el.$css("background","blue").$fadeIn(400).then((it) => it.$css("background","green"));
- 
+  
+  el
+  .$css("background","blue")
+  .$fadeIn(400)
+  .then(function(){ 
+    this.$css("background","green") 
+  }.bind(el));
+
   $selectAll(li)[0].$text("0");
   $selectAll(li).forEach(el => el.$css("color","black"));
   
