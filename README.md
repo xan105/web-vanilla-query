@@ -79,13 +79,13 @@ API
 
 ## Named export
 
-- DOMReady(callback: function) `no chain`
+- whenReady(): `promise`
 
-- $define(HTMLElement): HTMLElement¹
+- define(HTMLElement): HTMLElement¹
 - $select(query: string, scope = document): HTMLElement¹
 - $selectAll(query: string, scope = document): HTMLElement¹
 
-¹ `$select()`, `$selectAll()` and `$define()` add the following helper fn to the returned HTMLElement.
+¹ `$select()`, `$selectAll()` and `define()` add the following helper fn as properties to the returned HTMLElement:
 
 - $addClass(name: string)
 - $removeClass(name: string)

@@ -260,14 +260,31 @@ function prepend(html) {
 
 // lib/index.js
 function DOMReady(fn) {
+  console.warn("DOMReady() is deprecated and pending removal. Please use the promise whenReady() instead.");
   if (document.readyState !== "loading")
     fn();
   else
-    document.addEventListener("DOMContentLoaded", fn);
+    document.addEventListener("DOMContentLoaded", fn, {
+      capture: false,
+      once: true
+    });
+}
+function whenReady() {
+  return new Promise((resolve) => {
+    if (document.readyState !== "loading")
+      resolve();
+    else
+      document.addEventListener("DOMContentLoaded", () => resolve(), {
+        capture: false,
+        once: true
+      });
+  });
 }
 export {
   define as $define,
   select as $select,
   selectAll as $selectAll,
-  DOMReady
+  DOMReady,
+  define,
+  whenReady
 };
