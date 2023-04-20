@@ -10,9 +10,9 @@ Example
 =======
 
 ```js
-import { DOMReady, $select, $selectAll } from "./path/to/vq.js"
+import { whenReady, $select, $selectAll } from "./path/to/vq.js"
 
-DOMReady(()=>{
+whenReady.then(()=>{
   
   $select("#div .child[data-attr='val']").$css("background","red").$text("Hello World");
   
