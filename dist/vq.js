@@ -69,7 +69,9 @@ __export(helper_exports, {
   $off: () => $off,
   $on: () => $on,
   $once: () => $once,
+  $removeAllListeners: () => $removeAllListeners,
   $removeClass: () => $removeClass,
+  $removeListener: () => $off,
   $show: () => $show,
   $text: () => $text,
   $toggleClass: () => $toggleClass,
@@ -135,8 +137,8 @@ var $isHidden = function() {
     checkVisibilityCSS: true
   });
 };
-var $on = function(event, callback) {
-  this.addEventListener(event, callback, false);
+var $on = function(eventName, listener) {
+  this.addEventListener(eventName, listener, false);
   let events = Object.getOwnPropertySymbols(this).find((symbol) => symbol.description === "events");
   if (!events) {
     events = Symbol("events");
@@ -147,30 +149,40 @@ var $on = function(event, callback) {
       writable: false
     });
   }
-  this[events][event] ??= /* @__PURE__ */ new Set();
-  this[events][event].add(callback);
+  this[events][eventName] ??= /* @__PURE__ */ new Set();
+  this[events][eventName].add(listener);
 };
-var $once = function(event, callback) {
-  this.addEventListener(event, callback, {
+var $once = function(eventName, listener) {
+  this.addEventListener(eventName, listener, {
     capture: false,
     once: true
   });
 };
-var $off = function(event, callback) {
+var $off = function(eventName, listener) {
   const events = Object.getOwnPropertySymbols(this).find((symbol) => symbol.description === "events");
-  if (typeof callback === "function") {
-    this.removeEventListener(event, callback, false);
-    this[events]?.[event]?.delete(callback);
-  } else if (this[events]?.[event]) {
-    this[events][event].forEach((cb) => {
-      this.removeEventListener(event, cb, false);
+  if (typeof listener === "function") {
+    this.removeEventListener(eventName, listener, false);
+    this[events]?.[eventName]?.delete(listener);
+  } else if (this[events]?.[eventName]) {
+    this[events][eventName].forEach((cb) => {
+      this.removeEventListener(eventName, cb, false);
     });
-    this[events][event].clear();
+    this[events][eventName].clear();
   }
 };
-var $click = function(callback) {
-  if (typeof callback === "function") {
-    this.$on("click", callback, false);
+var $removeAllListeners = function(eventName = []) {
+  const events = Object.getOwnPropertySymbols(this).find((symbol) => symbol.description === "events");
+  if (!events)
+    return;
+  for (const [name] of Object.entries(this[events])) {
+    if (eventName.length > 0 && !eventName.includes(name))
+      continue;
+    this.$off(name);
+  }
+};
+var $click = function(listener) {
+  if (typeof listener === "function") {
+    this.$on("click", listener);
   } else {
     this.click();
   }
@@ -180,9 +192,9 @@ var $trigger = function(name) {
   event.initEvent(name, false, true);
   this.dispatchEvent(event);
 };
-var $contextmenu = function(callback) {
-  if (typeof callback === "function") {
-    this.$on("contextmenu", callback, false);
+var $contextmenu = function(listener) {
+  if (typeof listener === "function") {
+    this.$on("contextmenu", listener);
   } else {
     this.$trigger("contextmenu");
   }
@@ -226,8 +238,8 @@ function select(query, scope = document) {
 function selectAll(query, scope = document) {
   return [...scope.querySelectorAll(query)].map((el) => define(el));
 }
-function parent(el = null) {
-  return define(el ? this.closest(el) : this.parentNode);
+function parent(query = null) {
+  return define(query ? this.closest(query) : this.parentNode);
 }
 function prev() {
   return define(this.previousElementSibling ?? this.parentElement?.lastElementChild);
