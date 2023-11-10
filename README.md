@@ -156,6 +156,7 @@ API
   Add an EventListener which is automatically removed when the listener is invoked.
 
 - `$off(eventName: string, listener?: function): void`
+
   _alias: $removeListener_
   
   Remove specified listener/handler for the given event.<br/>
