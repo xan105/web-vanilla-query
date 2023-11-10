@@ -12,27 +12,25 @@ Example
 ```js
 import { whenReady, $select, $selectAll } from "./path/to/vq.js"
 
-whenReady.then(()=>{
+await whenReady(); //DOM is ready
   
-  $select("#div .child[data-attr='val']").$css("background","red").$text("Hello World");
+$select("#div .child[data-attr='val']").$css("background","red").$text("Hello World");
   
-  const el = $select("#div");
-  el.$hide();
+const el = $select("#div");
+el.$hide();
   
-  el
-  .$css("background","blue")
-  .$fadeIn(400)
-  .then(function(){ 
-    this.$css("background","green") 
-  }.bind(el));
+el
+.$css("background","blue")
+.$fadeIn(400)
+.then(function(){ 
+  this.$css("background","green") 
+}.bind(el));
 
-  $selectAll(li)[0].$text("0");
-  $selectAll(li).forEach(el => el.$css("color","black"));
+$selectAll(li)[0].$text("0");
+$selectAll(li).forEach(el => el.$css("color","black"));
   
-  $select("#div .child").$css("background","red").$select(".child").$selectAll("p");
-  
-  //...
-});
+$select("#div .child").$css("background","red").$select(".child").$selectAll("p");
+//...
 ```
 
 Install
@@ -42,22 +40,20 @@ Install
 npm i @xan105/vanilla-query
 ```
 
-### Optional 
+💡 The bundled library and its minified version can be found in the `./dist` folder.
 
-Create an importmap:
+### Via importmap
 
-```json
-{
-  "imports": {
-    "@xan105/vanilla-query": "./path/to/node_modules/@xan105/vanilla-query/dist/vq.min.js"
-  }
-}
-```
-
-index.html:
+Create an importmap and add it to your html
 
 ```html
-  <script src="./importmap.json" type="importmap"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "@xan105/vanilla-query": "./path/to/node_modules/@xan105/vanilla-query/dist/vq.min.js"
+    }
+  }
+  </script>
   <script src="./index.js" type="module"></script>
   </body>
 </html>
@@ -66,10 +62,9 @@ index.html:
 index.js:
 
 ```js
-import { DOMReady } from "@xan105/vanilla-query"
-DOMReady(()=>{ 
-  console.log("Hello world !");
-});
+import { whenReady } from "@xan105/vanilla-query"
+await whenReady();
+console.log("Hello world !");
 ```
 
 API
@@ -79,46 +74,150 @@ API
 
 ## Named export
 
-- whenReady(): `promise`
+- `whenReady(): Promise<void>`
 
-- define(HTMLElement): HTMLElement¹
-- $select(query: string, scope = document): HTMLElement¹
-- $selectAll(query: string, scope = document): HTMLElement¹
+  Resolves when the DOM is ready.
+  
+- `define(el: HTMLElement | Unknown): HTMLElement | Unknown`
 
-¹ `$select()`, `$selectAll()` and `define()` add the following helper fn as properties to the returned HTMLElement:
+  Add the following helpers (see below) to the given HTMLElement.
 
-- $addClass(name: string)
-- $removeClass(name: string)
-- $toggleClass(name: string)
-- $hasClass(name: string)
-- $html(value?: string)² 
-- $css(name: string, value?: string)²
-- $text(value?: string)²
-- $attr(name: string, value?: string)²
-- $empty()
-- $show()
-- $hide()
-- $isHidden() `no chain`
-- $append(html: string)
-- $prepend(html: string)
-- $click(callback: function) or $click()² `no chain`
-- $on(event: string, callback: function) `no chain`
-- $off(event: string, callback: function) or $off(event)³ `no chain`
-- $once(event: string, callback: function) `no chain`
-- $trigger(name: string) `no chain`
-- $contextmenu(callback: function) or $contextmenu()² `no chain`
-- $select(query: string)
-- $selectAll(query: string)
-- $parent(el?: string)
-- $prev()
-- $next()
-- $prevUntilVisible()
-- $nextUntilVisible()
-- $fadeOut(duration?: number = 400) `promise`
-- $fadeIn(duration?: number = 400) `promise`
+- `$select(query: string, scope?: HTMLElement = document): HTMLElement | undefined`
 
-² Set _or_ get value / trigger callback when omitted
+  Select HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
+  Add the following helpers (see below) to the returned HTMLElement.
 
-³ eventListeners created by `$on()` (_including $click(), $contextmenu()_) are stored in the "hidden" property `$__events__`. Calling `$off(event)` will remove every known handler for that event.
+- `$selectAll(query: string, scope?: HTMLElement = document): HTMLElement[] | undefined[]`
 
-💡 Unless otherwise specified each return itself so you can chain the methods.
+  Select every HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
+  Add the following helpers (see below) to every returned HTMLElement.
+
+### Helpers
+
+- `$addClass(name: string): HTMLElement`
+
+  Add given class name.
+
+- `$removeClass(name: string): HTMLElement`
+
+  Remove given class name.
+
+- `$toggleClass(name: string): HTMLElement`
+
+  Toggle given class name: remove if exist and add it otherwise.
+
+- `$hasClass(name: string): boolean`
+
+  Return whether the HTMLElement has the given class name or not.
+
+- `$html(value?: string): HTMLElement | string`
+
+  Set innerHTML to the given value if any.<br/>
+  Otherwise returns the current innerHTML.
+ 
+- `$css(name: string, value?: string): HTMLElement | string`
+
+  Set CSS style name property to the given value if any.<br/>
+  Otherwise returns the current value.
+
+- `$text(value?: string): HTMLElement | string`
+
+  Set text content to the given value if any.<br/>
+  Otherwise returns the current value.
+
+- `$attr(name: string, value?: string): HTMLElement | string`
+
+  Set attribute name to the given value if any.<br/>
+  Otherwise returns the current value.
+
+- `$empty(): HTMLElement`
+
+  Remove all children of the HTMLElement.
+
+- `$show(): HTMLElement`
+
+  Show the HTMLElement.
+
+- `$hide(): HTMLElement`
+
+  Hide the HTMLElement.
+
+- `$isHidden(): boolean`
+
+  Return whether the HTMLElement is visible or not.
+
+- `$on(eventName: string, listener: function): void`
+
+  Add an EventListener and keep track of the listener inside the Symbol property `events`.<br/>
+  Calling `$off(eventName)` will remove every known listener/handler for that event.
+
+- `$once(eventName: string, listener: function): void`
+
+  Add an EventListener which is automatically removed when the listener is invoked.
+
+- `$off(eventName: string, listener?: function): void`
+  _alias: $removeListener_
+  
+  Remove specified listener/handler for the given event.<br/>
+  If omitted remove every known listener/handler for the given event.
+  
+- `$removeAllListeners(eventName?: string[]): void`
+
+  Remove every known listener/handler or those of the specified eventName.
+
+- `$click(listener?: function): void`
+  
+  Add a click event listener or trigger it if omitted.
+
+- `$contextmenu(listener?: function): void`
+
+  Add a right click event _(contextmenu)_ listener or trigger it if omitted.
+
+- `$trigger(name: string): void`
+
+  Trigger given HTML event name.
+  
+- `$select(query: string): HTMLElement | undefined`
+
+  See `$select()` above but the scope is the current HTMLElement.
+
+- `$selectAll(query: string): HTMLElement[] | undefined[]`
+
+  See `$selectAll()` above but the scope is the current HTMLElement.
+
+- `$parent(query?: string): HTMLElement | undefined`
+
+  Return the closest parent element that matches the specified query selector.<br/>
+  If omitted return the parent node.
+
+- `$prev(): HTMLElement | undefined`
+
+  Return the previous element if any.
+
+- `$next(): HTMLElement | undefined`
+
+  Return the next element if any.
+
+- `$prevUntilVisible(): HTMLElement | undefined`
+
+  Return the previous visible element if any.
+
+- `$nextUntilVisible(): HTMLElement | undefined`
+
+  Return the next visible element if any.
+
+- `$append(html: string): HTMLElement`
+
+  Append given html to the current HTMLElement and return the newly created HTMLElement.
+
+- `$prepend(html: string): HTMLElement`
+
+  Prepend given html to the current HTMLElement and return the newly created HTMLElement.
+
+- `$fadeOut(duration?: number = 400): Promise<void>`
+
+  Fade out animation to the current HTMLElement.
+
+- `$fadeIn(duration?: number = 400): Promise<void>`
+
+  Fade in animation to the current HTMLElement.
