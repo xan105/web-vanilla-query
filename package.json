@@ -1,10 +1,13 @@
 {
   "name": "@xan105/vanilla-query",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "DOM manipulation and traversal in Vanilla JS with chaining",
   "type": "module",
   "exports": "./lib/index.js",
   "browser": "./dist/vq.min.js",
+  "config": {
+    "root": "./"
+  },
   "scripts": {
     "lint": "eslint \"./lib/**/*.js\"",
     "bundle": "npm run-script bundle:pretty && npm run-script bundle:min",
@@ -49,11 +52,7 @@
   ],
   "devDependencies": {
     "@xan105/qwebsrv": "^1.0.5",
-    "esbuild": "^0.16.10",
-    "eslint": "^8.30.0"
-  },
-  "config": {
-    "host": "localhost",
-    "root": "./"
+    "esbuild": "^0.19.5",
+    "eslint": "^8.53.0"
   }
 }

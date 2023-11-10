@@ -16,10 +16,10 @@ var $fadeOut = function(duration = 400) {
     const root = document.querySelector("body");
     root.style["pointer-events"] = "none";
     el.style.opacity = 1;
-    let previous = +new Date();
+    let previous = +/* @__PURE__ */ new Date();
     (function fade() {
-      el.style.opacity = +el.style.opacity - (new Date() - previous) / duration;
-      previous = +new Date();
+      el.style.opacity = +el.style.opacity - (/* @__PURE__ */ new Date() - previous) / duration;
+      previous = +/* @__PURE__ */ new Date();
       if (+el.style.opacity <= 0) {
         el.style.display = "none";
         el.style.removeProperty("opacity");
@@ -39,10 +39,10 @@ var $fadeIn = function(duration = 400) {
     el.style.display = "";
     if (getComputedStyle(el).display === "none")
       el.style.display = "block";
-    let previous = +new Date();
+    let previous = +/* @__PURE__ */ new Date();
     (function fade() {
-      el.style.opacity = +el.style.opacity + (new Date() - previous) / duration;
-      previous = +new Date();
+      el.style.opacity = +el.style.opacity + (/* @__PURE__ */ new Date() - previous) / duration;
+      previous = +/* @__PURE__ */ new Date();
       if (+el.style.opacity >= 1) {
         el.style.removeProperty("opacity");
         root.style["pointer-events"] = "";
@@ -137,17 +137,18 @@ var $isHidden = function() {
 };
 var $on = function(event, callback) {
   this.addEventListener(event, callback, false);
-  if (!this.$__events__) {
-    Object.defineProperty(this, "$__events__", {
+  let events = Object.getOwnPropertySymbols(this).find((symbol) => symbol.description === "events");
+  if (!events) {
+    events = Symbol("events");
+    Object.defineProperty(this, events, {
       value: /* @__PURE__ */ Object.create(null),
       configurable: false,
       enumerable: false,
       writable: false
     });
   }
-  if (!this.$__events__[event])
-    this.$__events__[event] = /* @__PURE__ */ new Set();
-  this.$__events__[event].add(callback);
+  this[events][event] ??= /* @__PURE__ */ new Set();
+  this[events][event].add(callback);
 };
 var $once = function(event, callback) {
   this.addEventListener(event, callback, {
@@ -156,14 +157,15 @@ var $once = function(event, callback) {
   });
 };
 var $off = function(event, callback) {
+  const events = Object.getOwnPropertySymbols(this).find((symbol) => symbol.description === "events");
   if (typeof callback === "function") {
     this.removeEventListener(event, callback, false);
-    this.$__events__?.[event]?.delete(callback);
-  } else if (this.$__events__?.[event]) {
-    this.$__events__[event].forEach((cb) => {
+    this[events]?.[event]?.delete(callback);
+  } else if (this[events]?.[event]) {
+    this[events][event].forEach((cb) => {
       this.removeEventListener(event, cb, false);
     });
-    this.$__events__[event].clear();
+    this[events][event].clear();
   }
 };
 var $click = function(callback) {
@@ -238,7 +240,9 @@ function prevUntilVisible() {
   let el = self2, equal = false;
   do {
     el = prev.bind(el)();
-  } while (el && (equal = self2.isEqualNode(el)) === false && el.$isHidden());
+  } while (el && //exists
+  (equal = self2.isEqualNode(el)) === false && //is a sibling (yet to loop through them all)
+  el.$isHidden());
   return equal ? void 0 : el;
 }
 function nextUntilVisible() {
@@ -246,7 +250,9 @@ function nextUntilVisible() {
   let el = self2, equal = false;
   do {
     el = next.bind(el)();
-  } while (el && (equal = self2.isEqualNode(el)) === false && el.$isHidden());
+  } while (el && //exists
+  (equal = self2.isEqualNode(el)) === false && //is a sibling (yet to loop through them all)
+  el.$isHidden());
   return equal ? void 0 : el;
 }
 function append(html) {
