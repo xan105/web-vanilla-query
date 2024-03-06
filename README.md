@@ -44,7 +44,7 @@ npm i @xan105/vanilla-query
 
 ### Via importmap
 
-Create an importmap and add it to your html
+Create an importmap and add it to your html:
 
 ```html
   <script type="importmap">
@@ -82,6 +82,16 @@ API
 
   Add the following helpers (see below) to the given HTMLElement.
 
+- `create(tag: string): HTMLElement`
+
+  Create an HTML element specified by the given tag name.<br/>
+  Add the following helpers (see below) to the returned HTMLElement.
+  
+- `createFrom(html: string): HTMLElement`
+
+  Create an HTML element from the given html string template.<br/>
+  Add the following helpers (see below) to the returned HTMLElement.
+
 - `$select(query: string, scope?: HTMLElement = document): HTMLElement | undefined`
 
   Select HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
@@ -91,20 +101,31 @@ API
 
   Select every HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
   Add the following helpers (see below) to every returned HTMLElement.
+  
+- `add(el: HTMLElement | string, parent?: HTMLElement = document.body): HTMLElement`
+
+  Add given node to the end of the list of children of the specified parent node.<br/>
+  If `el` is a `string` then a node will be created from the assumed tag name.<br/>
+  Add the following helpers (see below) to every returned HTMLElement.
+  
+- `addFrom(html: string, parent?: HTMLElement = document.body): HTMLElement`
+  
+  Create a node from the given html string template and add it to the end of the list of children of the specified parent node.<br/>
+  Add the following helpers (see below) to every returned HTMLElement.
 
 ### Helpers
 
-- `$addClass(name: string): HTMLElement`
+- `$addClass(...names: string[]): HTMLElement`
 
-  Add given class name.
+  Add given class name(s).
 
-- `$removeClass(name: string): HTMLElement`
+- `$removeClass(...names: string[]): HTMLElement`
 
-  Remove given class name.
+  Remove given class name(s).
 
-- `$toggleClass(name: string): HTMLElement`
+- `$toggleClass(...names: string[]): HTMLElement`
 
-  Toggle given class name: remove if exist and add it otherwise.
+  Toggle given class name(s): remove if exist and add it otherwise.
 
 - `$hasClass(name: string): boolean`
 
@@ -117,8 +138,19 @@ API
  
 - `$css(name: string, value?: string): HTMLElement | string`
 
-  Set CSS style name property to the given value if any.<br/>
+  Set CSS inline style name property to the given value if any.<br/>
   Otherwise returns the current value.
+  
+- `$style(sheet: object): HTMLElement`
+
+  Set CSS inline style from a sheet object as 
+  
+  ```
+  { 
+    name: value,
+    ...
+  }
+  ```
 
 - `$text(value?: string): HTMLElement | string`
 
