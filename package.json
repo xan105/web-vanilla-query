@@ -12,7 +12,7 @@
     "lint": "eslint \"./lib/**/*.js\"",
     "bundle": "npm run-script bundle:pretty && npm run-script bundle:min",
     "bundle:pretty": "esbuild \"./lib/index.js\" --bundle --platform=browser --target=esnext --format=esm --outfile=\"./dist/vq.js\"",
-    "bundle:min": "esbuild \"./lib/index.js\" --bundle --minify --platform=browser --target=esnext --format=esm --outfile=\"./dist/vq.min.js\"",
+    "bundle:min": "esbuild \"./lib/index.js\" --bundle --minify --legal-comments=none --platform=browser --target=esnext --format=esm --outfile=\"./dist/vq.min.js\"",
     "test": "start http://localhost/test && websrv"
   },
   "keywords": [
@@ -54,5 +54,8 @@
     "@xan105/qwebsrv": "^1.0.5",
     "esbuild": "^0.19.5",
     "eslint": "^8.53.0"
+  },
+  "dependencies": {
+    "dompurify": "^3.0.9"
   }
 }
