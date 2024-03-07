@@ -102,13 +102,13 @@ API
   Select every HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
   Add the following helpers (see below) to every returned HTMLElement.
   
-- `add(el: HTMLElement | string, parent?: HTMLElement = document.body): HTMLElement`
+- `$add(el: HTMLElement | string, parent?: HTMLElement = document.body): HTMLElement`
 
   Add given node to the end of the list of children of the specified parent node.<br/>
   If `el` is a `string` then a node will be created from the assumed tag name.<br/>
   Add the following helpers (see below) to every returned HTMLElement.
   
-- `addFrom(html: string, parent?: HTMLElement = document.body): HTMLElement`
+- `$addFrom(html: string, parent?: HTMLElement = document.body): HTMLElement`
   
   Create a node from the given html string template and add it to the end of the list of children of the specified parent node.<br/>
   Add the following helpers (see below) to every returned HTMLElement.
@@ -161,6 +161,14 @@ API
 
   Set attribute name to the given value if any.<br/>
   Otherwise returns the current value.
+  
+- `$toggleAttr(...names: string[]): HTMLElement`
+
+  Toggle given attribute name(s): remove if exist and add it otherwise.
+
+- `$removeAttr(...names: string[]): HTMLElement`
+
+  Remove given attribute name(s).
 
 - `$empty(): HTMLElement`
 
@@ -217,6 +225,14 @@ API
 - `$selectAll(query: string): HTMLElement[] | undefined[]`
 
   See `$selectAll()` above but the scope is the current HTMLElement.
+  
+- `$add(el: HTMLElement | string): HTMLElement`
+
+  See `$add()` above but the scope is the current HTMLElement.
+  
+- `$addFrom(html: string): HTMLElement`
+  
+  See `$addFrom()` above but the scope is the current HTMLElement.
 
 - `$parent(query?: string): HTMLElement | undefined`
 
