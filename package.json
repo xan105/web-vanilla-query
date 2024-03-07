@@ -8,6 +8,13 @@
   "config": {
     "root": "./"
   },
+  "files": [
+    "/dist",
+    "/lib"
+  ],
+  "engines": {
+    "node": ">=20.11.0"
+  },
   "scripts": {
     "lint": "eslint \"./lib/**/*.js\"",
     "bundle": "npm run-script bundle:pretty && npm run-script bundle:min",
@@ -51,9 +58,11 @@
     }
   ],
   "devDependencies": {
+    "@eslint/js": "^8.57.0",
     "@xan105/qwebsrv": "^1.0.5",
-    "esbuild": "^0.19.5",
-    "eslint": "^8.53.0"
+    "esbuild": "^0.20.1",
+    "eslint": "^8.57.0",
+    "globals": "^14.0.0"
   },
   "dependencies": {
     "dompurify": "^3.0.9"
