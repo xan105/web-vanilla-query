@@ -97,15 +97,15 @@ API
   
   A shorthand for calling `whenReady()` + `whenDefined()`.
 
-- `html\`string\`: HTMLElement`
+- ``html`string`: HTMLElement``
 
   Create a HTML element from the given html string template.<br/>
-  NB: This is a template literal (template string) "tagFunction".
+  _NB: This is a template literal (template string) "tagFunction"._
   
-- `css\`string\`: CSSStyleSheet`
+- ``css`string`: CSSStyleSheet``
 
   Create a CSS style sheet from the given css string template.<br/>
-  NB: This is a template literal (template string) "tagFunction".
+  _NB: This is a template literal (template string) "tagFunction"._
   
 - `define(el: HTMLElement | Unknown): HTMLElement | Unknown`
 
