@@ -10,10 +10,22 @@ Example
 =======
 
 ```js
-import { whenReady, $select, $selectAll } from "./path/to/vq.js"
+import { whenReady, html, $select, $selectAll } from "./path/to/vq.js"
 
 await whenReady(); //DOM is ready
-  
+
+//Creating HTMLElement
+function component(){
+  return html`
+    <ul>
+      <li>foo</li>
+      <li>bar</li>
+    </ul>
+  `
+}
+$select(#mydiv).add(component());
+
+//DOM Manipulation
 $select("#div .child[data-attr='val']").$css("background","red").$text("Hello World");
   
 const el = $select("#div");
@@ -30,7 +42,6 @@ $selectAll(li)[0].$text("0");
 $selectAll(li).forEach(el => el.$css("color","black"));
   
 $select("#div .child").$css("background","red").$select(".child").$selectAll("p");
-//...
 ```
 
 Install
@@ -78,19 +89,27 @@ API
 
   Resolves when the DOM is ready.
   
+- `whenDefined(components?: { name: HTMLElement Constructor, ... }): Promise<void>`
+
+  Resolves when all Web Components (CustomElements) are defined.
+  
+- `whenLoaded(components?: object): Promise<void>`
+  
+  A shorthand for calling `whenReady()` + `whenDefined()`.
+
+- `html\`string\`: HTMLElement`
+
+  Create a HTML element from the given html string template.<br/>
+  NB: This is a template literal (template string) "tagFunction".
+  
+- `css\`string\`: CSSStyleSheet`
+
+  Create a CSS style sheet from the given css string template.<br/>
+  NB: This is a template literal (template string) "tagFunction".
+  
 - `define(el: HTMLElement | Unknown): HTMLElement | Unknown`
 
   Add the following helpers (see below) to the given HTMLElement.
-
-- `create(tag: string): HTMLElement`
-
-  Create an HTML element specified by the given tag name.<br/>
-  Add the following helpers (see below) to the returned HTMLElement.
-  
-- `createFrom(html: string): HTMLElement`
-
-  Create an HTML element from the given html string template.<br/>
-  Add the following helpers (see below) to the returned HTMLElement.
 
 - `$select(query: string, scope?: HTMLElement = document): HTMLElement | undefined`
 
@@ -100,17 +119,6 @@ API
 - `$selectAll(query: string, scope?: HTMLElement = document): HTMLElement[] | undefined[]`
 
   Select every HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
-  Add the following helpers (see below) to every returned HTMLElement.
-  
-- `$add(el: HTMLElement | string, parent?: HTMLElement = document.body): HTMLElement`
-
-  Add given node to the end of the list of children of the specified parent node.<br/>
-  If `el` is a `string` then a node will be created from the assumed tag name.<br/>
-  Add the following helpers (see below) to every returned HTMLElement.
-  
-- `$addFrom(html: string, parent?: HTMLElement = document.body): HTMLElement`
-  
-  Create a node from the given html string template and add it to the end of the list of children of the specified parent node.<br/>
   Add the following helpers (see below) to every returned HTMLElement.
 
 ### Helpers
@@ -143,11 +151,11 @@ API
   
 - `$style(sheet: object): HTMLElement`
 
-  Set CSS inline style from a sheet object as 
+  Set CSS inline style from a sheet object representation as follows:
   
   ```
   { 
-    name: value,
+    name: "value",
     ...
   }
   ```
@@ -218,40 +226,37 @@ API
 
   Trigger given HTML event name.
   
-- `$select(query: string): HTMLElement | undefined`
+- `$select(query: string): HTMLElement | null`
 
-  See `$select()` above but the scope is the current HTMLElement.
+  See `$select()` above but the scope is the current element.
 
-- `$selectAll(query: string): HTMLElement[] | undefined[]`
+- `$selectAll(query: string): HTMLElement[] | null[]`
 
-  See `$selectAll()` above but the scope is the current HTMLElement.
+  See `$selectAll()` above but the scope is the current element.
   
 - `$add(el: HTMLElement | string): HTMLElement`
 
-  See `$add()` above but the scope is the current HTMLElement.
-  
-- `$addFrom(html: string): HTMLElement`
-  
-  See `$addFrom()` above but the scope is the current HTMLElement.
+  Add given element to the end of the list of children of the current element.<br/>
+  If `el` is a `string` then an element will be created from the assumed tag name.
 
-- `$parent(query?: string): HTMLElement | undefined`
+- `$parent(query?: string): HTMLElement | null`
 
   Return the closest parent element that matches the specified query selector.<br/>
   If omitted return the parent node.
 
-- `$prev(): HTMLElement | undefined`
+- `$prev(): HTMLElement | null`
 
   Return the previous element if any.
 
-- `$next(): HTMLElement | undefined`
+- `$next(): HTMLElement | null`
 
   Return the next element if any.
 
-- `$prevUntilVisible(): HTMLElement | undefined`
+- `$prevUntilVisible(): HTMLElement | null`
 
   Return the previous visible element if any.
 
-- `$nextUntilVisible(): HTMLElement | undefined`
+- `$nextUntilVisible(): HTMLElement | null`
 
   Return the next visible element if any.
 
