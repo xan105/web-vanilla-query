@@ -30,9 +30,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 
 // node_modules/dompurify/dist/purify.js
 var require_purify = __commonJS({
-  "node_modules/dompurify/dist/purify.js"(exports, module) {
+  "node_modules/dompurify/dist/purify.js"(exports, module2) {
     (function(global, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.DOMPurify = factory());
+      typeof exports === "object" && typeof module2 !== "undefined" ? module2.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.DOMPurify = factory());
     })(exports, function() {
       "use strict";
       const {
@@ -45,7 +45,7 @@ var require_purify = __commonJS({
       let {
         freeze,
         seal,
-        create: create2
+        create
       } = Object;
       let {
         apply,
@@ -130,7 +130,7 @@ var require_purify = __commonJS({
         return array;
       }
       function clone(object) {
-        const newObject = create2(null);
+        const newObject = create(null);
         for (const [property, value] of entries(object)) {
           const isPropertyExist = objectHasOwnProperty(object, property);
           if (isPropertyExist) {
@@ -170,7 +170,7 @@ var require_purify = __commonJS({
       const mathMl$1 = freeze(["math", "menclose", "merror", "mfenced", "mfrac", "mglyph", "mi", "mlabeledtr", "mmultiscripts", "mn", "mo", "mover", "mpadded", "mphantom", "mroot", "mrow", "ms", "mspace", "msqrt", "mstyle", "msub", "msup", "msubsup", "mtable", "mtd", "mtext", "mtr", "munder", "munderover", "mprescripts"]);
       const mathMlDisallowed = freeze(["maction", "maligngroup", "malignmark", "mlongdiv", "mscarries", "mscarry", "msgroup", "mstack", "msline", "msrow", "semantics", "annotation", "annotation-xml", "mprescripts", "none"]);
       const text = freeze(["#text"]);
-      const html = freeze(["accept", "action", "align", "alt", "autocapitalize", "autocomplete", "autopictureinpicture", "autoplay", "background", "bgcolor", "border", "capture", "cellpadding", "cellspacing", "checked", "cite", "class", "clear", "color", "cols", "colspan", "controls", "controlslist", "coords", "crossorigin", "datetime", "decoding", "default", "dir", "disabled", "disablepictureinpicture", "disableremoteplayback", "download", "draggable", "enctype", "enterkeyhint", "face", "for", "headers", "height", "hidden", "high", "href", "hreflang", "id", "inputmode", "integrity", "ismap", "kind", "label", "lang", "list", "loading", "loop", "low", "max", "maxlength", "media", "method", "min", "minlength", "multiple", "muted", "name", "nonce", "noshade", "novalidate", "nowrap", "open", "optimum", "pattern", "placeholder", "playsinline", "poster", "preload", "pubdate", "radiogroup", "readonly", "rel", "required", "rev", "reversed", "role", "rows", "rowspan", "spellcheck", "scope", "selected", "shape", "size", "sizes", "span", "srclang", "start", "src", "srcset", "step", "style", "summary", "tabindex", "title", "translate", "type", "usemap", "valign", "value", "width", "xmlns", "slot"]);
+      const html2 = freeze(["accept", "action", "align", "alt", "autocapitalize", "autocomplete", "autopictureinpicture", "autoplay", "background", "bgcolor", "border", "capture", "cellpadding", "cellspacing", "checked", "cite", "class", "clear", "color", "cols", "colspan", "controls", "controlslist", "coords", "crossorigin", "datetime", "decoding", "default", "dir", "disabled", "disablepictureinpicture", "disableremoteplayback", "download", "draggable", "enctype", "enterkeyhint", "face", "for", "headers", "height", "hidden", "high", "href", "hreflang", "id", "inputmode", "integrity", "ismap", "kind", "label", "lang", "list", "loading", "loop", "low", "max", "maxlength", "media", "method", "min", "minlength", "multiple", "muted", "name", "nonce", "noshade", "novalidate", "nowrap", "open", "optimum", "pattern", "placeholder", "playsinline", "poster", "preload", "pubdate", "radiogroup", "readonly", "rel", "required", "rev", "reversed", "role", "rows", "rowspan", "spellcheck", "scope", "selected", "shape", "size", "sizes", "span", "srclang", "start", "src", "srcset", "step", "style", "summary", "tabindex", "title", "translate", "type", "usemap", "valign", "value", "width", "xmlns", "slot"]);
       const svg = freeze(["accent-height", "accumulate", "additive", "alignment-baseline", "ascent", "attributename", "attributetype", "azimuth", "basefrequency", "baseline-shift", "begin", "bias", "by", "class", "clip", "clippathunits", "clip-path", "clip-rule", "color", "color-interpolation", "color-interpolation-filters", "color-profile", "color-rendering", "cx", "cy", "d", "dx", "dy", "diffuseconstant", "direction", "display", "divisor", "dur", "edgemode", "elevation", "end", "fill", "fill-opacity", "fill-rule", "filter", "filterunits", "flood-color", "flood-opacity", "font-family", "font-size", "font-size-adjust", "font-stretch", "font-style", "font-variant", "font-weight", "fx", "fy", "g1", "g2", "glyph-name", "glyphref", "gradientunits", "gradienttransform", "height", "href", "id", "image-rendering", "in", "in2", "k", "k1", "k2", "k3", "k4", "kerning", "keypoints", "keysplines", "keytimes", "lang", "lengthadjust", "letter-spacing", "kernelmatrix", "kernelunitlength", "lighting-color", "local", "marker-end", "marker-mid", "marker-start", "markerheight", "markerunits", "markerwidth", "maskcontentunits", "maskunits", "max", "mask", "media", "method", "mode", "min", "name", "numoctaves", "offset", "operator", "opacity", "order", "orient", "orientation", "origin", "overflow", "paint-order", "path", "pathlength", "patterncontentunits", "patterntransform", "patternunits", "points", "preservealpha", "preserveaspectratio", "primitiveunits", "r", "rx", "ry", "radius", "refx", "refy", "repeatcount", "repeatdur", "restart", "result", "rotate", "scale", "seed", "shape-rendering", "specularconstant", "specularexponent", "spreadmethod", "startoffset", "stddeviation", "stitchtiles", "stop-color", "stop-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-opacity", "stroke", "stroke-width", "style", "surfacescale", "systemlanguage", "tabindex", "targetx", "targety", "transform", "transform-origin", "text-anchor", "text-decoration", "text-rendering", "textlength", "type", "u1", "u2", "unicode", "values", "viewbox", "visibility", "version", "vert-adv-y", "vert-origin-x", "vert-origin-y", "width", "word-spacing", "wrap", "writing-mode", "xchannelselector", "ychannelselector", "x", "x1", "x2", "xmlns", "y", "y1", "y2", "z", "zoomandpan"]);
       const mathMl = freeze(["accent", "accentunder", "align", "bevelled", "close", "columnsalign", "columnlines", "columnspan", "denomalign", "depth", "dir", "display", "displaystyle", "encoding", "fence", "frame", "height", "href", "id", "largeop", "length", "linethickness", "lspace", "lquote", "mathbackground", "mathcolor", "mathsize", "mathvariant", "maxsize", "minsize", "movablelimits", "notation", "numalign", "open", "rowalign", "rowlines", "rowspacing", "rowspan", "rspace", "rquote", "scriptlevel", "scriptminsize", "scriptsizemultiplier", "selection", "separator", "separators", "stretchy", "subscriptshift", "supscriptshift", "symmetric", "voffset", "width", "xmlns"]);
       const xml = freeze(["xlink:href", "xml:id", "xlink:title", "xml:space", "xmlns:xlink"]);
@@ -216,8 +216,8 @@ var require_purify = __commonJS({
         const policyName = "dompurify" + (suffix ? "#" + suffix : "");
         try {
           return trustedTypes.createPolicy(policyName, {
-            createHTML(html2) {
-              return html2;
+            createHTML(html3) {
+              return html3;
             },
             createScriptURL(scriptUrl) {
               return scriptUrl;
@@ -292,8 +292,8 @@ var require_purify = __commonJS({
         let ALLOWED_TAGS = null;
         const DEFAULT_ALLOWED_TAGS = addToSet({}, [...html$1, ...svg$1, ...svgFilters, ...mathMl$1, ...text]);
         let ALLOWED_ATTR = null;
-        const DEFAULT_ALLOWED_ATTR = addToSet({}, [...html, ...svg, ...mathMl, ...xml]);
-        let CUSTOM_ELEMENT_HANDLING = Object.seal(create2(null, {
+        const DEFAULT_ALLOWED_ATTR = addToSet({}, [...html2, ...svg, ...mathMl, ...xml]);
+        let CUSTOM_ELEMENT_HANDLING = Object.seal(create(null, {
           tagNameCheck: {
             writable: true,
             configurable: false,
@@ -426,7 +426,7 @@ var require_purify = __commonJS({
             ALLOWED_ATTR = [];
             if (USE_PROFILES.html === true) {
               addToSet(ALLOWED_TAGS, html$1);
-              addToSet(ALLOWED_ATTR, html);
+              addToSet(ALLOWED_ATTR, html2);
             }
             if (USE_PROFILES.svg === true) {
               addToSet(ALLOWED_TAGS, svg$1);
@@ -1204,7 +1204,7 @@ var $contextmenu = function(listener) {
 };
 
 // lib/select.js
-var self2 = {
+var module = {
   $select: function(query) {
     return select(query, this);
   },
@@ -1213,9 +1213,6 @@ var self2 = {
   },
   $add: function(el) {
     return add(el, this);
-  },
-  $addFrom: function(html) {
-    return addFrom(html, this);
   },
   $parent: parent,
   $prev: prev,
@@ -1230,91 +1227,91 @@ var param = {
   enumerable: false,
   writable: false
 };
-var properties = Object.assign({}, helper_exports, fx_exports, self2);
+var properties = Object.assign({}, helper_exports, fx_exports, module);
 for (const k in properties) {
   if (Object.hasOwn(properties, k))
     properties[k] = { value: properties[k], ...param };
 }
-function define2(el) {
-  if (el && el instanceof HTMLElement) {
+function extend(el) {
+  if (el && (el instanceof HTMLElement || el instanceof ShadowRoot)) {
     Object.defineProperties(el, properties);
   }
   return el;
 }
-function create(tag) {
-  const el = document.createElement(tag.toString());
-  return define2(el);
-}
-function createFrom(html) {
-  const template = document.createElement("template");
-  template.innerHTML = (0, import_dompurify2.sanitize)(html);
-  const instance = template.content.cloneNode(true);
-  return define2(instance.firstElementChild);
-}
 function select(query, scope = document) {
-  return define2(scope.querySelector(query));
+  return extend(scope.querySelector(query));
 }
 function selectAll(query, scope = document) {
-  return [...scope.querySelectorAll(query)].map((el) => define2(el));
+  return [...scope.querySelectorAll(query)].map((el) => extend(el));
 }
 function add(el, parent2 = document.body) {
   if (el instanceof HTMLElement)
-    return parent2.appendChild(define2(el));
+    return parent2.appendChild(extend(el));
+  else if (typeof el === "string")
+    return parent2.appendChild(extend(document.createElement(el)));
   else
-    return parent2.appendChild(create(el));
-}
-function addFrom(html, parent2 = document.body) {
-  return parent2.appendChild(createFrom(html));
+    throw new TypeError("Expected type HTMLElement or string !");
 }
 function parent(query = null) {
-  return define2(query ? this.closest(query) : this.parentNode);
+  if (query)
+    return extend(this.closest(query));
+  else if (this.parentNode && this.parentNode instanceof HTMLElement)
+    return extend(this.parentNode);
+  else
+    return null;
 }
 function prev() {
-  return define2(this.previousElementSibling ?? this.parentElement?.lastElementChild);
+  return extend(this.previousElementSibling ?? this.parentElement?.lastElementChild ?? null);
 }
 function next() {
-  return define2(this.nextElementSibling ?? this.parentElement?.firstElementChild);
+  return extend(this.nextElementSibling ?? this.parentElement?.firstElementChild ?? null);
 }
 function prevUntilVisible() {
-  const self3 = this;
-  let el = self3, equal = false;
+  const self2 = this;
+  let el = self2, equal = false;
   do {
     el = prev.call(el);
   } while (el && //exists
-  (equal = self3.isEqualNode(el)) === false && //is a sibling (yet to loop through them all)
+  (equal = self2.isEqualNode(el)) === false && //is a sibling (yet to loop through them all)
   el.$isHidden());
-  return equal ? void 0 : el;
+  return equal ? null : el;
 }
 function nextUntilVisible() {
-  const self3 = this;
-  let el = self3, equal = false;
+  const self2 = this;
+  let el = self2, equal = false;
   do {
     el = next.call(el);
   } while (el && //exists
-  (equal = self3.isEqualNode(el)) === false && //is a sibling (yet to loop through them all)
+  (equal = self2.isEqualNode(el)) === false && //is a sibling (yet to loop through them all)
   el.$isHidden());
-  return equal ? void 0 : el;
+  return equal ? null : el;
 }
-function append(html) {
-  this.insertAdjacentHTML("beforeend", (0, import_dompurify2.sanitize)(html));
-  return define2(this.lastElementChild);
+function append(html2) {
+  this.insertAdjacentHTML("beforeend", (0, import_dompurify2.sanitize)(html2));
+  return extend(this.lastElementChild);
 }
-function prepend(html) {
-  this.insertAdjacentHTML("afterbegin", (0, import_dompurify2.sanitize)(html));
-  return define2(this.firstElementChild);
+function prepend(html2) {
+  this.insertAdjacentHTML("afterbegin", (0, import_dompurify2.sanitize)(html2));
+  return extend(this.firstElementChild);
+}
+
+// lib/template.js
+var import_dompurify3 = __toESM(require_purify(), 1);
+function html(strings, ...values) {
+  const string = String.raw({ raw: strings }, ...values).trim();
+  const template = document.createElement("template");
+  template.innerHTML = (0, import_dompurify3.sanitize)(string);
+  const instance = template.content.cloneNode(true);
+  return instance.firstElementChild;
+}
+function css(strings, ...values) {
+  const string = String.raw({ raw: strings }, ...values).trim();
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(string);
+  return sheet;
 }
 
 // lib/index.js
-function DOMReady(fn) {
-  console.warn("DOMReady() is deprecated and pending removal. Please use the promise whenReady() instead.");
-  if (document.readyState !== "loading")
-    fn();
-  else
-    document.addEventListener("DOMContentLoaded", fn, {
-      capture: false,
-      once: true
-    });
-}
 function whenReady() {
   return new Promise((resolve) => {
     if (document.readyState !== "loading")
@@ -1326,16 +1323,30 @@ function whenReady() {
       });
   });
 }
+async function whenDefined(components = {}) {
+  const entries = Object.entries(components);
+  for (const [name, element] of entries) {
+    if (customElements.get(name))
+      continue;
+    else
+      customElements.define(name, element);
+  }
+  await Promise.all(entries.map(([name]) => customElements.whenDefined(name)));
+}
+function whenLoaded(components) {
+  return Promise.all([
+    whenReady(),
+    whenDefined(components)
+  ]);
+}
 export {
-  add as $add,
-  addFrom as $addFrom,
-  define2 as $define,
   select as $select,
   selectAll as $selectAll,
-  DOMReady,
-  create,
-  createFrom,
-  define2 as define,
+  css,
+  extend,
+  html,
+  whenDefined,
+  whenLoaded,
   whenReady
 };
 /*! Bundled license information:
