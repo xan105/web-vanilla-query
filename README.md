@@ -93,7 +93,7 @@ API
 
   Resolves when all Web Components (CustomElements) are defined.
   
-- `whenLoaded(components?: object): Promise<void>`
+- `whenLoaded(components?: { name: HTMLElement Constructor, ... }): Promise<void>`
   
   A shorthand for calling `whenReady()` + `whenDefined()`.
 
