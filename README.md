@@ -115,11 +115,15 @@ API
 
   Select HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
   Add the following helpers (see below) to the returned HTMLElement.
+  
+  NB: If the targeted element is a HTML template tag then its cloned instance is returned.
 
 - `$selectAll(query: string, scope?: HTMLElement = document): HTMLElement[] | undefined[]`
 
   Select every HTMLElement matching the given query selector; relative to the given scope (document if omitted).<br/>
   Add the following helpers (see below) to every returned HTMLElement.
+  
+  NB: If some of the targeted elements are a HTML template tag then their cloned instance are returned.
 
 ### Helpers
 
@@ -234,10 +238,12 @@ API
 
   See `$selectAll()` above but the scope is the current element.
   
-- `$add(el: HTMLElement | string): HTMLElement`
+- `$add(el: HTMLElement | string | DocumentFragment): HTMLElement`
 
   Add given element to the end of the list of children of the current element.<br/>
   If `el` is a `string` then an element will be created from the assumed tag name.
+  
+  If `el` is a `DocumentFragment` the fragment is appended to the current element and is then returned. 
 
 - `$parent(query?: string): HTMLElement | null`
 

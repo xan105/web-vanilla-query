@@ -243,7 +243,7 @@ var require_purify = __commonJS({
         const originalDocument = document2;
         const currentScript = originalDocument.currentScript;
         const {
-          DocumentFragment,
+          DocumentFragment: DocumentFragment2,
           HTMLTemplateElement,
           Node,
           Element,
@@ -832,7 +832,7 @@ var require_purify = __commonJS({
             if (_sanitizeElements(shadowNode)) {
               continue;
             }
-            if (shadowNode.content instanceof DocumentFragment) {
+            if (shadowNode.content instanceof DocumentFragment2) {
               _sanitizeShadowDOM2(shadowNode.content);
             }
             _sanitizeAttributes(shadowNode);
@@ -904,7 +904,7 @@ var require_purify = __commonJS({
             if (_sanitizeElements(currentNode)) {
               continue;
             }
-            if (currentNode.content instanceof DocumentFragment) {
+            if (currentNode.content instanceof DocumentFragment2) {
               _sanitizeShadowDOM(currentNode.content);
             }
             _sanitizeAttributes(currentNode);
@@ -1082,7 +1082,7 @@ var $hasClass = function(name) {
 };
 var $html = function(value = null) {
   if (value == null)
-    return (0, import_dompurify.sanitize)(this.innerHTML);
+    return (0, import_dompurify.sanitize)(this.innerHTML, { ADD_ATTR: ["target"] });
   this.innerHTML = (0, import_dompurify.sanitize)(value);
   return this;
 };
@@ -1233,24 +1233,39 @@ for (const k in properties) {
     properties[k] = { value: properties[k], ...param };
 }
 function extend(el) {
-  if (el && (el instanceof HTMLElement || el instanceof ShadowRoot)) {
+  if (el && (el instanceof HTMLElement || el instanceof DocumentFragment || el instanceof ShadowRoot)) {
     Object.defineProperties(el, properties);
   }
   return el;
 }
 function select(query, scope = document) {
-  return extend(scope.querySelector(query));
+  const el = scope.querySelector(query);
+  if (el?.tagName === "TEMPLATE") {
+    const clone = el.content.cloneNode(true);
+    return extend(clone);
+  }
+  return extend(el);
 }
 function selectAll(query, scope = document) {
-  return [...scope.querySelectorAll(query)].map((el) => extend(el));
+  return [...scope.querySelectorAll(query)].map((el) => {
+    if (el?.tagName === "TEMPLATE") {
+      const clone = el.content.cloneNode(true);
+      return extend(clone);
+    }
+    return extend(el);
+  });
 }
 function add(el, parent2 = document.body) {
-  if (el instanceof HTMLElement)
+  if (el instanceof HTMLElement) {
     return parent2.appendChild(extend(el));
-  else if (typeof el === "string")
+  } else if (el instanceof DocumentFragment) {
+    parent2.appendChild(el);
+    return extend(parent2);
+  } else if (typeof el === "string") {
     return parent2.appendChild(extend(document.createElement(el)));
-  else
-    throw new TypeError("Expected type HTMLElement or string !");
+  } else {
+    throw new TypeError("Expected type HTMLElement, DocumentFragment or string !");
+  }
 }
 function parent(query = null) {
   if (query)
@@ -1287,11 +1302,11 @@ function nextUntilVisible() {
   return equal ? null : el;
 }
 function append(html2) {
-  this.insertAdjacentHTML("beforeend", (0, import_dompurify2.sanitize)(html2));
+  this.insertAdjacentHTML("beforeend", (0, import_dompurify2.sanitize)(html2, { ADD_ATTR: ["target"] }));
   return extend(this.lastElementChild);
 }
 function prepend(html2) {
-  this.insertAdjacentHTML("afterbegin", (0, import_dompurify2.sanitize)(html2));
+  this.insertAdjacentHTML("afterbegin", (0, import_dompurify2.sanitize)(html2, { ADD_ATTR: ["target"] }));
   return extend(this.firstElementChild);
 }
 
@@ -1300,7 +1315,7 @@ var import_dompurify3 = __toESM(require_purify(), 1);
 function html(strings, ...values) {
   const string = String.raw({ raw: strings }, ...values).trim();
   const template = document.createElement("template");
-  template.innerHTML = (0, import_dompurify3.sanitize)(string);
+  template.innerHTML = (0, import_dompurify3.sanitize)(string, { ADD_ATTR: ["target"] });
   const instance = template.content.cloneNode(true);
   return instance.firstElementChild;
 }
