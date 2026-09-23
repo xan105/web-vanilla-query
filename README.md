@@ -14,7 +14,7 @@ import { whenReady, html, $select, $selectAll } from "./path/to/vq.js"
 
 await whenReady(); //DOM is ready
 
-//Creating HTMLElement
+//Creating DocumentFragment
 function component(){
   return html`
     <ul>
@@ -97,15 +97,19 @@ API
   
   A shorthand for calling `whenReady()` + `whenDefined()`.
 
-- ``html`string`: HTMLElement``
+- ``html`string`: DocumentFragment``
 
-  Create a HTML element from the given html string template.<br/>
+  Create a DocumentFragment from the given html string template.<br/>
   _NB: This is a template literal (template string) "tagFunction"._
   
 - ``css`string`: CSSStyleSheet``
 
   Create a CSS style sheet from the given css string template.<br/>
   _NB: This is a template literal (template string) "tagFunction"._
+  
+ - `adoptStyleSheet(sheet, root = document)`
+ 
+  Add a CSSStyleSheet to the given ShadowRoot "root" or the document if omitted.
   
 - `define(el: HTMLElement | Unknown): HTMLElement | Unknown`
 
@@ -265,14 +269,6 @@ API
 - `$nextUntilVisible(): HTMLElement | null`
 
   Return the next visible element if any.
-
-- `$append(html: string): HTMLElement`
-
-  Append given html to the current HTMLElement and return the newly created HTMLElement.
-
-- `$prepend(html: string): HTMLElement`
-
-  Prepend given html to the current HTMLElement and return the newly created HTMLElement.
 
 - `$fadeOut(duration?: number = 400): Promise<void>`
 
