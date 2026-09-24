@@ -97,11 +97,43 @@ API
   
   A shorthand for calling `whenReady()` + `whenDefined()`.
 
-- ``html`string`: DocumentFragment``
+- ``html(options?: Sanitizer | SanitizerConfig | string)`string`: DocumentFragment``
 
   Create a DocumentFragment from the given html string template.<br/>
-  _NB: This is a template literal (template string) "tagFunction"._
+  The function returns a _template literal (template string) "tagFunction"_ which returns the DocumentFragment.
+
+  ### options
   
+    A [Sanitizer](https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer) or [SanitizerConfig](https://developer.mozilla.org/en-US/docs/Web/API/SanitizerConfig) object which defines what elements of the input will be allowed or removed, or the string "default" for the default configuration.
+    
+    If omitted the default configuration is used.
+
+  > [!IMPORTANT]
+  > The method removes any elements and attributes that are considered XSS-unsafe, even if allowed by a passed sanitizer.
+  
+  _Example_
+  
+  ```js
+  const sanitizer = new Sanitizer({elements: ["div", "p", "button", "script"]});
+  // script is unsafe and will be removed
+  const template = html(sanitizer)`
+  <div>
+    <p>Paragraph to inject into DOM.
+      <button onclick="alert('You clicked the button!')">Click me</button>
+    </p>
+    <script src="path/to/a/module.js" type="module"><\/script>
+    <p data-id="123">Para with <code>data-</code> attribute</p>
+  </div>
+  `;
+  ```
+  
+- ``htmlUnsafe(options?: Sanitizer | SanitizerConfig | string)`string`: DocumentFragment``
+
+  > [!IMPORTANT]
+  > The suffix "Unsafe" in the method name indicates that it does not enforce removal of all XSS-unsafe HTML entities.
+
+  Otherwise same as ``html(options)`string`:DocumentFragment`` above.
+
 - ``css`string`: CSSStyleSheet``
 
   Create a CSS style sheet from the given css string template.<br/>
@@ -149,9 +181,9 @@ API
 
 - `$html(value?: string): HTMLElement | string`
 
-  Set innerHTML to the given value if any.<br/>
-  Otherwise returns the current innerHTML.
- 
+  Insert a string of HTML into the DOM as a subtree of the element.<br/>
+  If value is omitted then it returns the element's DOM as an HTML string.
+
 - `$css(name: string, value?: string): HTMLElement | string`
 
   Set CSS inline style name property to the given value if any.<br/>
