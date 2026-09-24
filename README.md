@@ -16,10 +16,14 @@ await whenReady(); //DOM is ready
 
 //Creating DocumentFragment
 function component(){
-  return html`
-    <ul>
+  return html({
+    elements: ["ul", "li"],
+    attributes: ["class"],
+    dataAttributes: true
+  })`
+    <ul class="foo">
       <li>foo</li>
-      <li>bar</li>
+      <li data-foo="bar">bar</li>
     </ul>
   `
 }
@@ -104,12 +108,12 @@ API
 
   ### options
   
-    A [Sanitizer](https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer) or [SanitizerConfig](https://developer.mozilla.org/en-US/docs/Web/API/SanitizerConfig) object which defines what elements of the input will be allowed or removed, or the string "default" for the default configuration.
+  A [Sanitizer](https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer) or [SanitizerConfig](https://developer.mozilla.org/en-US/docs/Web/API/SanitizerConfig) object which defines what elements of the input will be allowed or removed, or the string "default" for the default configuration.
     
-    If omitted the default configuration is used.
+  If omitted the default configuration is used.
 
-  > [!IMPORTANT]
-  > The method removes any elements and attributes that are considered XSS-unsafe, even if allowed by a passed sanitizer.
+> [!IMPORTANT]
+> The method removes any elements and attributes that are considered XSS-unsafe, even if allowed by a passed sanitizer.
   
   _Example_
   
@@ -129,8 +133,8 @@ API
   
 - ``htmlUnsafe(options?: Sanitizer | SanitizerConfig | string)`string`: DocumentFragment``
 
-  > [!IMPORTANT]
-  > The suffix "Unsafe" in the method name indicates that it does not enforce removal of all XSS-unsafe HTML entities.
+> [!IMPORTANT]
+> The suffix "Unsafe" in the method name indicates that it does not enforce removal of all XSS-unsafe HTML entities.
 
   Otherwise same as ``html(options)`string`:DocumentFragment`` above.
 
