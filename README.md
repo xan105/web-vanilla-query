@@ -139,8 +139,9 @@ API
   
 - `createSanitizer(SanitizerConfig): Sanitizer`
 
-  Apply a SanitizerConfig to the default Sanitizer configuration.
-  NB: Not all features are currently supported, it's mostly for _"allow configurations"_.
+  Apply a [SanitizerConfig](https://developer.mozilla.org/en-US/docs/Web/API/SanitizerConfig) to the [default Sanitizer configuration](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Sanitizer_API/Default_sanitizer_configuration).
+  
+  Returns a [Sanitizer](https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer) instance.
 
 - ``css`string`: CSSStyleSheet``
 
