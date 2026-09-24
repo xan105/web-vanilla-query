@@ -1,6 +1,6 @@
 {
   "name": "@xan105/vanilla-query",
-  "version": "1.11.1",
+  "version": "1.12.0",
   "description": "DOM manipulation and traversal in Vanilla JS with chaining",
   "type": "module",
   "exports": "./lib/index.js",
@@ -63,8 +63,5 @@
     "esbuild": "^0.28.2",
     "eslint": "^10.11.0",
     "globals": "^17.12.0"
-  },
-  "dependencies": {
-    "dompurify": "^3.4.15"
   }
 }
