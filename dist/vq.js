@@ -303,6 +303,23 @@ function nextUntilVisible() {
 }
 
 // lib/template.js
+function createSanitizer(config) {
+  const sanitizer = new Sanitizer("default");
+  for (const element of config.elements) {
+    if (typeof element === "string") {
+      sanitizer.allowElement(element);
+    } else {
+      const { name, attributes } = element;
+      sanitizer.allowElement({ name, attributes });
+    }
+  }
+  for (const attribute of config.attributes) {
+    sanitizer.allowAttribute(attribute);
+  }
+  sanitizer.setComments?.(config.comments ?? false);
+  sanitizer.setDataAttributes?.(config.dataAttributes ?? false);
+  return sanitizer;
+}
 function html(options) {
   return function(strings, ...values) {
     const string = String.raw({ raw: strings }, ...values).trim();
@@ -371,6 +388,7 @@ export {
   select as $select,
   selectAll as $selectAll,
   adoptStyleSheet,
+  createSanitizer,
   css,
   extend,
   html,
