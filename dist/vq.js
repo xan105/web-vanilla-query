@@ -303,21 +303,25 @@ function nextUntilVisible() {
 }
 
 // lib/template.js
-function createSanitizer(config) {
+function createSanitizer(SanitizerConfig) {
   const sanitizer = new Sanitizer("default");
-  for (const element of config.elements) {
-    if (typeof element === "string") {
-      sanitizer.allowElement(element);
-    } else {
-      const { name, attributes } = element;
-      sanitizer.allowElement({ name, attributes });
-    }
+  for (const element of SanitizerConfig.elements) {
+    sanitizer.allowElement(element);
   }
-  for (const attribute of config.attributes) {
+  for (const element of SanitizerConfig.removeElements) {
+    sanitizer.removeElement(element);
+  }
+  for (const element of SanitizerConfig.replaceWithChildrenElements) {
+    sanitizer.replaceElementWithChildren(element);
+  }
+  for (const attribute of SanitizerConfig.attributes) {
     sanitizer.allowAttribute(attribute);
   }
-  sanitizer.setComments?.(config.comments ?? false);
-  sanitizer.setDataAttributes?.(config.dataAttributes ?? false);
+  for (const attribute of SanitizerConfig.removeAttributes) {
+    sanitizer.removeAttribute(attribute);
+  }
+  sanitizer.setComments?.(SanitizerConfig.comments ?? false);
+  sanitizer.setDataAttributes?.(SanitizerConfig.dataAttributes ?? false);
   return sanitizer;
 }
 function html(options) {
