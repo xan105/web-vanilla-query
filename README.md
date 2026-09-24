@@ -112,8 +112,8 @@ API
     
   If omitted the default configuration is used.
 
-> [!IMPORTANT]
-> The method removes any elements and attributes that are considered XSS-unsafe, even if allowed by a passed sanitizer.
+
+  ⚠️ The method removes any elements and attributes that are considered XSS-unsafe, even if allowed by a passed sanitizer.
   
   _Example_
   
@@ -133,8 +133,7 @@ API
   
 - ``htmlUnsafe(options?: Sanitizer | SanitizerConfig | string)`string`: DocumentFragment``
 
-> [!IMPORTANT]
-> The suffix "Unsafe" in the method name indicates that it does not enforce removal of all XSS-unsafe HTML entities.
+  ⚠️ The suffix "Unsafe" in the method name indicates that it does not enforce removal of all XSS-unsafe HTML entities.
 
   Otherwise same as ``html(options)`string`:DocumentFragment`` above.
 
@@ -143,7 +142,7 @@ API
   Create a CSS style sheet from the given css string template.<br/>
   _NB: This is a template literal (template string) "tagFunction"._
   
- - `adoptStyleSheet(sheet, root = document)`
+- `adoptStyleSheet(sheet, root = document)`
  
   Add a CSSStyleSheet to the given ShadowRoot "root" or the document if omitted.
   
