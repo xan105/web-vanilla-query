@@ -136,6 +136,11 @@ API
   ⚠️ The suffix "Unsafe" in the method name indicates that it does not enforce removal of all XSS-unsafe HTML entities.
 
   Otherwise same as ``html(options)`string`:DocumentFragment`` above.
+  
+- `createSanitizer(SanitizerConfig): Sanitizer`
+
+  Apply a SanitizerConfig to the default Sanitizer configuration.
+  NB: Not all features are currently supported, it's mostly for _"allow configurations"_.
 
 - ``css`string`: CSSStyleSheet``
 
