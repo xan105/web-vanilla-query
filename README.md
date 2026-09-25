@@ -285,10 +285,11 @@ API
   
 - `$add(el: HTMLElement | string | DocumentFragment): HTMLElement`
 
-  Add given element to the end of the list of children of the current element.<br/>
+  Add a new instance of the given element or DocumentFragment to the end of the list of children of the current element.
+  
   If `el` is a `string` then an element will be created from the assumed tag name.
   
-  If `el` is a `DocumentFragment` the fragment is appended to the current element and is then returned. 
+  If `el` is a `DocumentFragment` then the fragment is appended to the current element and it returns the current element. 
 
 - `$parent(query?: string): HTMLElement | null`
 
