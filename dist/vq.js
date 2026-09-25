@@ -257,9 +257,9 @@ function selectAll(query, scope = document) {
 }
 function add(el, parent2 = document.body) {
   if (el instanceof HTMLElement) {
-    return parent2.appendChild(extend(el));
+    return parent2.appendChild(extend(el.cloneNode(true)));
   } else if (el instanceof DocumentFragment) {
-    parent2.appendChild(el);
+    parent2.appendChild(el.cloneNode(true));
     return extend(parent2);
   } else if (typeof el === "string") {
     return parent2.appendChild(extend(document.createElement(el)));
@@ -305,19 +305,19 @@ function nextUntilVisible() {
 // lib/template.js
 function createSanitizer(SanitizerConfig) {
   const sanitizer = new Sanitizer("default");
-  for (const element of SanitizerConfig.elements) {
+  for (const element of SanitizerConfig.elements ?? []) {
     sanitizer.allowElement(element);
   }
-  for (const element of SanitizerConfig.removeElements) {
+  for (const element of SanitizerConfig.removeElements ?? []) {
     sanitizer.removeElement(element);
   }
-  for (const element of SanitizerConfig.replaceWithChildrenElements) {
+  for (const element of SanitizerConfig.replaceWithChildrenElements ?? []) {
     sanitizer.replaceElementWithChildren(element);
   }
-  for (const attribute of SanitizerConfig.attributes) {
+  for (const attribute of SanitizerConfig.attributes ?? []) {
     sanitizer.allowAttribute(attribute);
   }
-  for (const attribute of SanitizerConfig.removeAttributes) {
+  for (const attribute of SanitizerConfig.removeAttributes ?? []) {
     sanitizer.removeAttribute(attribute);
   }
   sanitizer.setComments?.(SanitizerConfig.comments ?? false);
@@ -331,8 +331,7 @@ function html(options) {
     template.setHTML(string, {
       sanitizer: options ?? "default"
     });
-    const fragment = template.content.cloneNode(true);
-    return fragment;
+    return template.content;
   };
 }
 function htmlUnsafe(options) {
@@ -342,8 +341,7 @@ function htmlUnsafe(options) {
     template.setHTMLUnsafe(string, {
       sanitizer: options ?? "default"
     });
-    const fragment = template.content.cloneNode(true);
-    return fragment;
+    return template.content;
   };
 }
 function css(strings, ...values) {
